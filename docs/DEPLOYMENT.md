@@ -20,7 +20,7 @@
 
 #### 单容器部署
 
-\`\`\`bash
+```bash
 # 创建配置目录
 mkdir -p /opt/glance-china/config
 
@@ -47,11 +47,11 @@ docker run -d \
   -p 8080:8080 \
   -v /opt/glance-china/config:/app/config \
   glance-china:latest
-\`\`\`
+```
 
 #### Docker Compose 部署
 
-\`\`\`yaml
+```yaml
 # docker-compose.yml
 version: '3.8'
 
@@ -81,13 +81,13 @@ services:
 
 volumes:
   redis_data:
-\`\`\`
+```
 
 ### 2. 二进制部署
 
 #### 下载和安装
 
-\`\`\`bash
+```bash
 # 创建用户和目录
 sudo useradd -r -s /bin/false glance
 sudo mkdir -p /opt/glance-china/{bin,config,data,logs}
@@ -95,15 +95,15 @@ sudo chown -R glance:glance /opt/glance-china
 
 # 下载二进制文件
 cd /opt/glance-china/bin
-sudo wget https://github.com/your-org/glance-china/releases/latest/download/glance-china-linux-amd64.tar.gz
+sudo wget https://github.com/linzi007/glance-china/releases/latest/download/glance-china-linux-amd64.tar.gz
 sudo tar -xzf glance-china-linux-amd64.tar.gz
 sudo chown glance:glance glance-china
 sudo chmod +x glance-china
-\`\`\`
+```
 
 #### 创建 systemd 服务
 
-\`\`\`bash
+```bash
 # 创建服务文件
 sudo cat > /etc/systemd/system/glance-china.service << EOF
 [Unit]
@@ -129,11 +129,11 @@ EOF
 sudo systemctl daemon-reload
 sudo systemctl enable glance-china
 sudo systemctl start glance-china
-\`\`\`
+```
 
 ### 3. Kubernetes 部署
 
-\`\`\`yaml
+```yaml
 # k8s-deployment.yml
 apiVersion: apps/v1
 kind: Deployment
@@ -186,7 +186,7 @@ spec:
   - port: 80
     targetPort: 8080
   type: LoadBalancer
-\`\`\`
+```
 
 ## 反向代理配置
 

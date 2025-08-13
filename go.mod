@@ -1,4 +1,4 @@
-module github.com/your-username/glance-china
+module github.com/linzi007/glance-china
 
 go 1.21
 

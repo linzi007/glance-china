@@ -36,7 +36,7 @@
 
 ```bash
 # 克隆项目
-git clone https://github.com/your-org/glance-china.git
+git clone https://github.com/linzi007/glance-china.git
 cd glance-china
 
 # 复制配置文件
@@ -50,7 +50,7 @@ docker-compose up -d
 
 ```bash
 # 下载最新版本
-wget https://github.com/your-org/glance-china/releases/latest/download/glance-china-linux-amd64.tar.gz
+wget https://github.com/linzi007/glance-china/releases/latest/download/glance-china-linux-amd64.tar.gz
 tar -xzf glance-china-linux-amd64.tar.gz
 
 # 运行
@@ -175,6 +175,4 @@ MIT License - 详见 [LICENSE](LICENSE) 文件
 
 ## 📞 支持
 
-- GitHub Issues: [问题反馈](https://github.com/your-org/glance-china/issues)
-- 文档: [完整文档](https://docs.glance-china.com)
-- 社区: [讨论区](https://github.com/your-org/glance-china/discussions)
+- GitHub Issues: [问题反馈](https://github.com/linzi007/glance-china/issues)

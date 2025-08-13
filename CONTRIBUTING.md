@@ -5,26 +5,26 @@
 ## 开发环境设置
 
 1. **安装 Go 1.21+**
-   \`\`\`bash
+   ```bash
    # 检查 Go 版本
    go version
-   \`\`\`
+   ```
 
 2. **克隆仓库**
-   \`\`\`bash
-   git clone https://github.com/your-username/glance-china.git
+   ```bash
+   git clone https://github.com/linzi007/glance-china.git
    cd glance-china
-   \`\`\`
+   ```
 
 3. **安装依赖**
-   \`\`\`bash
+   ```bash
    go mod download
-   \`\`\`
+   ```
 
 4. **运行测试**
-   \`\`\`bash
+   ```bash
    go test ./...
-   \`\`\`
+   ```
 
 ## 贡献类型
 
@@ -46,7 +46,7 @@
 ## 代码规范
 
 ### Go 代码风格
-\`\`\`bash
+```bash
 # 格式化代码
 go fmt ./...
 
@@ -55,16 +55,16 @@ go vet ./...
 
 # 运行 linter
 golangci-lint run
-\`\`\`
+```
 
 ### 提交信息格式
-\`\`\`
+```
 type(scope): description
 
 [optional body]
 
 [optional footer]
-\`\`\`
+```
 
 类型：
 - `feat`: 新功能
@@ -83,29 +83,29 @@ type(scope): description
 ## Pull Request 流程
 
 1. **创建分支**
-   \`\`\`bash
+   ```bash
    git checkout -b feature/your-feature-name
-   \`\`\`
+   ```
 
 2. **开发和测试**
-   \`\`\`bash
+   ```bash
    # 开发代码
    # 运行测试
    go test ./...
    # 运行基准测试
    go test -bench=. ./...
-   \`\`\`
+   ```
 
 3. **提交代码**
-   \`\`\`bash
+   ```bash
    git add .
    git commit -m "feat(widget): add bilibili video widget"
-   \`\`\`
+   ```
 
 4. **推送分支**
-   \`\`\`bash
+   ```bash
    git push origin feature/your-feature-name
-   \`\`\`
+   ```
 
 5. **创建 Pull Request**
    - 填写详细的 PR 描述
@@ -115,10 +115,10 @@ type(scope): description
 ## 发布流程
 
 1. **版本标签**
-   \`\`\`bash
+   ```bash
    git tag -a v1.0.0 -m "Release v1.0.0"
    git push origin v1.0.0
-   \`\`\`
+   ```
 
 2. **自动构建**
    - GitHub Actions 自动构建多平台二进制文件
