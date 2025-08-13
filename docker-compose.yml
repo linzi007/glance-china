@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  glance-china:
+    build: .
+    container_name: glance-china
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./config:/app/config
+      - ./assets:/app/assets
+    environment:
+      - TZ=Asia/Shanghai
+      - GITEE_TOKEN=${GITEE_TOKEN}
+    networks:
+      - glance-network
+
+  # 可选：Redis缓存
+  redis:
+    image: redis:7-alpine
+    container_name: glance-redis
+    restart: unless-stopped
+    volumes:
+      - redis_data:/data
+    networks:
+      - glance-network
+
+volumes:
+  redis_data:
+
+networks:
+  glance-network:
+    driver: bridge

@@ -1,0 +1,125 @@
+# Glance 中国版配置示例
+server:
+  port: 8080
+  region: cn
+  api-sources:
+    bilibili:
+      base-url: https://api.bilibili.com
+      rate-limit: 100
+    zhihu:
+      base-url: https://www.zhihu.com/api
+      rate-limit: 50
+    gitee:
+      base-url: https://gitee.com/api/v5
+      token: ${GITEE_TOKEN}
+
+theme:
+  background-color: 240 8 9
+  primary-color: 43 50 70
+  positive-color: 120 60 50
+  negative-color: 0 70 70
+
+pages:
+  - name: 首页
+    columns:
+      - size: small
+        widgets:
+          - type: calendar
+            first-day-of-week: monday
+          
+          - type: weather
+            location: 北京, 中国
+            units: metric
+            hour-format: 24h
+          
+          - type: clock
+            hour-format: 24h
+            timezones:
+              - timezone: Asia/Shanghai
+                label: 北京
+              - timezone: America/New_York
+                label: 纽约
+              - timezone: Europe/London
+                label: 伦敦
+
+      - size: full
+        widgets:
+          - type: bilibili-videos
+            title: Bilibili 视频
+            up-masters:
+              - uid: "123456"
+                name: "技术UP主"
+              - uid: "789012"
+                name: "编程教学"
+            limit: 12
+            style: horizontal-cards
+            collapse-after: 6
+          
+          - type: zhihu-trending
+            title: 知乎热榜
+            categories:
+              - technology
+              - science
+            limit: 15
+            show-images: true
+            collapse-after: 8
+
+      - size: small
+        widgets:
+          - type: gitee-repos
+            title: Gitee 仓库
+            repositories:
+              - openharmony/kernel_liteos_a
+              - PaddlePaddle/Paddle
+              - apache/dubbo
+            token: ${GITEE_TOKEN}
+            show-issues: true
+            show-prs: true
+            limit: 8
+
+  - name: 开发
+    columns:
+      - size: full
+        widgets:
+          - type: rss
+            title: 技术资讯
+            feeds:
+              - url: https://www.infoq.cn/feed
+                title: InfoQ中文
+              - url: https://juejin.cn/rss
+                title: 掘金
+              - url: https://segmentfault.com/feeds
+                title: SegmentFault
+            limit: 20
+            collapse-after: 10
+          
+          - type: gitee-repos
+            title: 开源项目
+            repositories:
+              - vuejs/vue
+              - facebook/react
+              - microsoft/vscode
+            show-issues: true
+            show-prs: true
+
+  - name: 娱乐
+    columns:
+      - size: full
+        widgets:
+          - type: bilibili-videos
+            title: 娱乐视频
+            up-masters:
+              - uid: "111111"
+                name: "游戏UP主"
+              - uid: "222222"
+                name: "音乐UP主"
+            style: grid-cards
+            limit: 16
+          
+          - type: zhihu-trending
+            title: 热门话题
+            categories:
+              - entertainment
+              - gaming
+            show-images: true
+            limit: 10

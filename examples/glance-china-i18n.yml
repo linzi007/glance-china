@@ -1,0 +1,108 @@
+# Glance 中国版本地化配置示例
+server:
+  port: 8080
+  region: cn
+  api-sources:
+    bilibili:
+      base-url: https://api.bilibili.com
+      rate-limit: 100
+      timeout: 10s
+    zhihu:
+      base-url: https://www.zhihu.com/api
+      rate-limit: 50
+      timeout: 10s
+    gitee:
+      base-url: https://gitee.com/api/v5
+      rate-limit: 60
+      timeout: 10s
+      token: ${GITEE_TOKEN}
+
+locale:
+  default: zh-CN
+  supported:
+    - zh-CN
+    - en-US
+  timezone: Asia/Shanghai
+  date-format: "2006年01月02日"
+  time-format: "15:04"
+  currency: CNY
+  number-format:
+    decimal-separator: "."
+    thousand-separator: ","
+    use-chinese-units: true
+
+theme:
+  background-color: 240 8 9
+  primary-color: 43 50 70
+  positive-color: 120 60 50
+  negative-color: 0 70 70
+
+pages:
+  - name: 首页
+    locale: zh-CN
+    columns:
+      - size: small
+        widgets:
+          - type: calendar
+            first-day-of-week: monday
+            locale: zh-CN
+          
+          - type: weather
+            location: 北京, 中国
+            units: metric
+            hour-format: 24h
+            locale: zh-CN
+          
+          - type: clock
+            hour-format: 24h
+            locale: zh-CN
+            timezones:
+              - timezone: Asia/Shanghai
+                label: 北京
+              - timezone: America/New_York
+                label: 纽约
+
+      - size: full
+        widgets:
+          - type: bilibili-videos
+            title: Bilibili 视频
+            locale: zh-CN
+            up-masters:
+              - uid: "123456"
+                name: "技术UP主"
+            limit: 12
+            style: horizontal-cards
+            collapse-after: 6
+          
+          - type: zhihu-trending
+            title: 知乎热榜
+            locale: zh-CN
+            categories:
+              - technology
+              - science
+            limit: 15
+            show-images: true
+            collapse-after: 8
+
+  - name: Development
+    locale: en-US
+    columns:
+      - size: full
+        widgets:
+          - type: bilibili-videos
+            title: Tech Videos
+            locale: en-US
+            up-masters:
+              - uid: "123456"
+                name: "Tech Creator"
+            limit: 10
+            style: horizontal-cards
+          
+          - type: gitee-repos
+            title: Open Source Projects
+            locale: en-US
+            repositories:
+              - vuejs/vue
+              - facebook/react
+            show-issues: true
+            show-prs: true

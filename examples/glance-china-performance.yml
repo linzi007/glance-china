@@ -1,0 +1,131 @@
+# Glance 中国版性能优化配置
+server:
+  port: 8080
+  region: cn
+  
+  # 性能配置
+  performance:
+    max-workers: 20          # 最大工作协程数
+    worker-idle-timeout: 30s # 工作协程空闲超时
+    queue-size: 1000         # 任务队列大小
+    gc-percent: 100          # GC触发百分比
+    max-memory-mb: 512       # 最大内存使用(MB)
+  
+  # 缓存配置优化
+  cache:
+    type: memory
+    ttl: 5m
+    max-size: 200MB
+  
+  # 限流配置优化
+  rate-limit:
+    default-limit: 100
+    window: 1m
+    services:
+      bilibili: 200    # Bilibili API限流更宽松
+      zhihu: 100       # 知乎API适中限流
+      gitee: 150       # Gitee API限流
+      weibo: 80        # 微博API较严格限流
+      douyu: 120       # 斗鱼API限流
+
+  # API源配置优化
+  api-sources:
+    bilibili:
+      base-url: https://api.bilibili.com
+      rate-limit: 200
+      timeout: 5s      # 缩短超时时间
+      fallbacks:
+        - bilibili-backup
+      headers:
+        User-Agent: "Glance-China/1.0"
+        Connection: "keep-alive"
+    
+    zhihu:
+      base-url: https://www.zhihu.com/api
+      rate-limit: 100
+      timeout: 8s
+      fallbacks:
+        - zhihu-mirror
+      headers:
+        User-Agent: "Mozilla/5.0 (compatible; Glance-China/1.0)"
+    
+    gitee:
+      base-url: https://gitee.com/api/v5
+      rate-limit: 150
+      timeout: 6s
+      token: ${GITEE_TOKEN}
+      headers:
+        User-Agent: "Glance-China/1.0"
+        Accept: "application/json"
+
+# 监控配置
+monitoring:
+  enabled: true
+  interval: 30s
+  metrics:
+    - http_requests
+    - api_requests
+    - cache_performance
+    - memory_usage
+    - goroutine_count
+  
+  alerts:
+    error_rate_threshold: 5.0      # 错误率阈值(%)
+    response_time_threshold: 2s    # 响应时间阈值
+    memory_threshold: 400MB        # 内存使用阈值
+
+# 主题和界面优化
+theme:
+  background-color: 240 8 9
+  primary-color: 43 50 70
+  positive-color: 120 60 50
+  negative-color: 0 70 70
+  
+  # 性能优化相关
+  lazy-loading: true           # 启用懒加载
+  image-optimization: true     # 图片优化
+  css-minification: true       # CSS压缩
+  js-minification: true        # JS压缩
+
+# 页面配置
+pages:
+  - name: 首页
+    # 性能优化配置
+    cache-duration: 2m         # 页面缓存时长
+    max-widgets: 10            # 最大组件数限制
+    
+    columns:
+      - size: small
+        widgets:
+          - type: calendar
+            cache: 1h          # 日历组件缓存1小时
+          
+          - type: weather
+            location: 北京, 中国
+            cache: 10m         # 天气组件缓存10分钟
+          
+          - type: clock
+            cache: 30s         # 时钟组件缓存30秒
+
+      - size: full
+        widgets:
+          - type: bilibili-videos
+            up-masters:
+              - uid: "123456"
+                name: "技术UP主"
+            limit: 8           # 限制数量提升性能
+            cache: 3m          # 缓存3分钟
+            
+          - type: zhihu-trending
+            limit: 10          # 限制数量
+            cache: 5m          # 缓存5分钟
+            show-images: false # 关闭图片提升加载速度
+
+      - size: small
+        widgets:
+          - type: gitee-repos
+            repositories:
+              - openharmony/kernel_liteos_a
+              - PaddlePaddle/Paddle
+            limit: 5           # 限制仓库数量
+            cache: 10m         # 缓存10分钟
